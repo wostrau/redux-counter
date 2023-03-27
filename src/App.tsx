@@ -2,23 +2,23 @@ import React, {useEffect} from 'react'
 import './App.css'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppDispatchType, AppStateType} from './store/store'
-import {incrementValue, installValue} from './store/counter-reducer'
+import {incrementValueSuccess, installValueSuccess} from './store/counter-reducer'
 
 function App() {
-    const value = useSelector<AppStateType, number>(state => state.counter.value)
+    const counterValue = useSelector((state: AppStateType) => state.counter?.value ?? 0)
     const dispatch = useDispatch<AppDispatchType>()
 
     useEffect(() => {
-        dispatch(installValue())
+        dispatch(installValueSuccess(counterValue))
     }, [])
 
     function incHandler() {
-        dispatch(incrementValue())
+        dispatch(incrementValueSuccess())
     }
 
     return (
         <div className="App">
-            <h1>{value}</h1>
+            <h1>{counterValue}</h1>
             <button onClick={incHandler}>inc</button>
         </div>
     )
